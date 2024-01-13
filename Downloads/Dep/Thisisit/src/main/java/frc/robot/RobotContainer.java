@@ -59,7 +59,7 @@ public class RobotContainer {
                 true, true),
             m_robotDrive));
             SmartDashboard.putNumber("heading", m_robotDrive.getHeading());
-            SmartDashboard.putNumber("turning ",m_robotDrive.getpower());
+        SmartDashboard.getNumber("turnig", m_robotDrive.getpower());
             SmartDashboard.putNumber("turn rate ",m_robotDrive.getTurnRate());
             
 
