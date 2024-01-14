@@ -13,8 +13,11 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
@@ -38,7 +41,8 @@ public class RobotContainer {
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
-
+private final SendableChooser<Command> autoselect = new SendableChooser<>();
+private final Field2d m_field = new Field2d();
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -61,7 +65,8 @@ public class RobotContainer {
             SmartDashboard.putNumber("heading", m_robotDrive.getHeading());
         SmartDashboard.getNumber("turnig", m_robotDrive.getpower());
             SmartDashboard.putNumber("turn rate ",m_robotDrive.getTurnRate());
-            
+            SmartDashboard.putData("Feild", m_field);
+            m_field.setRobotPose(m_robotDrive.getPose());
 
   }
 
@@ -97,11 +102,11 @@ public class RobotContainer {
     // An example trajectory to follow. All units in meters.
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
         // Start at the origin facing the +X direction
-        new Pose2d(0, 0, new Rotation2d(0)),
+        new Pose2d(3, 2, new Rotation2d(0)),
         // Pass through these two interior waypoints, making an 's' curve path
-        List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+        List.of(new Translation2d(3, 2), new Translation2d(3, 3)),
         // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(3, 0, new Rotation2d(0)),
+        new Pose2d(3, 3, new Rotation2d(0)),
         config);
 
     var thetaController = new ProfiledPIDController(
